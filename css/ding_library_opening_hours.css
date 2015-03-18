@@ -2,9 +2,10 @@
 .ding-library-opening-hours .day {
   overflow: hidden;
   display: block;
+  padding: 6px !important;
 }
 
-.ding-library-opened-today .library .name,
+.ding-library-opened-today .library .library-name,
 .ding-library-opening-hours .day .day-name {
   display: block;
   float: left;

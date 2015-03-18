@@ -1,0 +1,84 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  ding_library_opening_hours.module: n/a
+#  ding_library_opening_hours.info: n/a
+#  modules/hide_from_opening_hours/hide_from_opening_hours.features.field_instance.inc: n/a
+#  modules/hide_from_opening_hours/hide_from_opening_hours.info: n/a
+#  templates/ding_library_opened_today_view.tpl.php: n/a
+#  templates/ding_library_opening_hours_view.tpl.php: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-02-19 16:12+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ding_library_opening_hours.module:41
+msgid "Ding: Opening hours for this week"
+msgstr ""
+
+#: ding_library_opening_hours.module:45
+msgid "Ding: Today's opening hours for all libraries"
+msgstr ""
+
+#: ding_library_opening_hours.module:61
+msgid "Opening hours"
+msgstr ""
+
+#: ding_library_opening_hours.module:70
+msgid "Opened today"
+msgstr ""
+
+#: ding_library_opening_hours.module:14
+msgid "Ding library opening/today hours"
+msgstr ""
+
+#: ding_library_opening_hours.module:15
+msgid "Ajax representation of widget"
+msgstr ""
+
+#: ding_library_opening_hours.info:0
+msgid "Ding library opening hours"
+msgstr ""
+
+#: ding_library_opening_hours.info:0
+msgid "Content structure for local libraries."
+msgstr ""
+
+#: ding_library_opening_hours.info:0
+msgid "easyDDB"
+msgstr ""
+
+#: modules/hide_from_opening_hours/hide_from_opening_hours.features.field_instance.inc:125
+msgid "Hide from library overview"
+msgstr ""
+
+#: modules/hide_from_opening_hours/hide_from_opening_hours.features.field_instance.inc:126 modules/hide_from_opening_hours/hide_from_opening_hours.info:0
+msgid "Hide from opening hours"
+msgstr ""
+
+#: modules/hide_from_opening_hours/hide_from_opening_hours.info:0
+msgid "Hide from opening hours main widget and library page overview"
+msgstr ""
+
+#: modules/hide_from_opening_hours/hide_from_opening_hours.info:0
+msgid "easyDDB"
+msgstr ""
+
+#: templates/ding_library_opened_today_view.tpl.php:10
+msgid "Closed"
+msgstr ""
+
+#: templates/ding_library_opened_today_view.tpl.php:16
+msgid "No content available."
+msgstr ""

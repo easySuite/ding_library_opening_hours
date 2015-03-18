@@ -6,7 +6,7 @@
         <?php if (isset($info['start_time']) && isset($info['end_time'])) :?>
           <?php print $info['start_time']; ?> - <?php print $info['end_time'];?>
         <?php else: ?>
-          <?php print t('closed'); ?>
+          <?php print t('Closed'); ?>
         <?php endif; ?>
       </div>
     </div>

@@ -58,7 +58,7 @@ function ding_library_opening_hours_block_view($delta = '') {
 
   if ($delta == 'ding_library_opening_hours' && $node = menu_get_object()) {
     drupal_add_css(drupal_get_path('module', 'ding_library_opening_hours') . '/css/ding_library_opening_hours.css', array('type' => 'file'));
-    $block['subject'] = t('Hours');
+    $block['subject'] = t('Opening hours');
     $block['content'] = array(
       '#theme' => 'ding_library_opening_hours_view',
       '#node' => $node,

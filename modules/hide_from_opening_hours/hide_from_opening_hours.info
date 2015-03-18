@@ -1,7 +1,7 @@
 name = Hide from opening hours
 description = Hide from opening hours main widget and library page overview
 core = 7.x
-package = EasyDDB
+package = easyDDB
 dependencies[] = features
 dependencies[] = list
 dependencies[] = options

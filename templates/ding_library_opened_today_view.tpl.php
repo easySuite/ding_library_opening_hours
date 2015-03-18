@@ -3,7 +3,7 @@
   <ul class="ding-library-opened-today">
     <?php foreach ($libraries as $library) :?>
         <li class="library">
-          <div class="name"><?php print $library['title'];?></div>
+          <div class="library-name"><?php print $library['title'];?></div>
           <?php if (isset($library['start_time']) && isset($library['end_time'])) :?>
             <div class="hours"><?php print $library['start_time']; ?> - <?php print $library['end_time'];?></div>
           <?php else:?>
