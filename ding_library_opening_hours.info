@@ -3,6 +3,5 @@ dependencies[] = "opening_hours"
 description = "Content structure for local libraries."
 name = "Ding library opening hours"
 package = "easyDDB"
-php = "5.2.4"
-version = "7.x-2.0.0"
+version = 7.x-2.0.0+easy
 
