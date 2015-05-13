@@ -1,5 +1,9 @@
 (function ($) {
 
+  $(document).ready(function() {
+    $('.day-notice-star').tipsy();
+  });
+
   Drupal.behaviors.ding_library_opening_hours__reload = {
     attach: function(context, settings) {
       $('.ding_library_hours').each(function(i, e){
