@@ -162,7 +162,7 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
   $nids = array_keys($result['node']);
   $nodes = entity_load('node', $nids);
 
-  if (count($nodes)) {
+  if (!empty($nodes)) {
     foreach ($nodes as $library) {
       $hide_from_main_widget = FALSE;
       if (isset($library->field_ding_library_main_val[LANGUAGE_NONE][0]['value'])) {
@@ -175,11 +175,14 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
     }
 
     // Get all dates for today
-    if (count($libraries) > 0) {
+    if (!empty($libraries) > 0) {
       $opening_hours = opening_hours_instance_load_multiple(array_keys($libraries), $today, $today);
+      $i = 0;
       foreach ($opening_hours as $hour) {
-        $libraries[$hour->nid]['start_time'] = $hour->start_time;
-        $libraries[$hour->nid]['end_time'] = $hour->end_time;
+        $libraries[$hour->nid]['opening_hours'][$i]['start_time'] = $hour->start_time;
+        $libraries[$hour->nid]['opening_hours'][$i]['end_time'] = $hour->end_time;
+        $libraries[$hour->nid]['opening_hours'][$i]['notice'] = $hour->notice;
+        $i++;
       }
     }
   }
