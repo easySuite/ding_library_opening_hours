@@ -26,11 +26,11 @@ msgstr ""
 
 #: ding_library_opening_hours.module:41
 msgid "Ding: Opening hours for this week"
-msgstr "Denne uges åbningstider"
+msgstr "Denne uges åbningstider for filialet"
 
 #: ding_library_opening_hours.module:45
 msgid "Ding: Today's opening hours for all libraries"
-msgstr "Denne uges åbningstider for alle filialer"
+msgstr "Dagens åbningstider for alle filialer"
 
 #: ding_library_opening_hours.module:61
 msgid "Opening hours"
