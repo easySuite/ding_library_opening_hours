@@ -15,4 +15,6 @@
 .ding-library-opening-hours .day .hours {
   display: block;
   float: right;
+  clear: right;
+  text-align: right;
 }
