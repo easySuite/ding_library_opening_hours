@@ -8,11 +8,11 @@
           <?php foreach ($library['opening_hours'] as $key => $opening_hour) : ?>
             <?php if (isset($opening_hour['start_time']) && isset($opening_hour['end_time'])) :?>
               <div class="hours">
-                <span class="start_time" title="<?php echo t('Opening time'); ?>"><?php print $opening_hour['start_time']; ?></span> -
-                <span class="end_time" title="<?php echo t('Closing time'); ?>"><?php print $opening_hour['end_time'];?></span>
                 <?php if (!empty($opening_hour['notice'])) :?>
                   <span class="day-notice-star" original-title="<?php print $opening_hour['notice']; ?>"></span>
                 <?php endif; ?>
+                <span class="start_time" title="<?php echo t('Opening time'); ?>"><?php print $opening_hour['start_time']; ?></span> -
+                <span class="end_time" title="<?php echo t('Closing time'); ?>"><?php print $opening_hour['end_time'];?></span>
               </div><br/>
             <?php endif; ?>
           <?php endforeach; ?>
