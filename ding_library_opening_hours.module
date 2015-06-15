@@ -156,7 +156,7 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
   $queue_id = array_keys(nodequeue_get_qids('ding_library'));
   $nodes = nodequeue_load_nodes($queue_id[0]);
 
-  if (!empty($nodes)) {-
+  if (!empty($nodes)) {
     foreach ($nodes as $library) {
       $hide_from_main_widget = FALSE;
       if (isset($library->field_ding_library_main_val[LANGUAGE_NONE][0]['value'])) {
