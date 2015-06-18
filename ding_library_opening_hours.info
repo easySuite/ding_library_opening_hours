@@ -3,5 +3,5 @@ dependencies[] = "opening_hours"
 description = "Content structure for local libraries."
 name = "Ding library opening hours"
 package = "easyDDB"
-version = 7.x-2.0.0+easy
+version = 7.x-2.1.0+easy
 
