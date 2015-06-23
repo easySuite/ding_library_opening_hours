@@ -153,7 +153,16 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
 
   // Load all libraries form list, because there are less libraries than dates
   // and because of how opening_hours_instance_load_multiple works
-  $queue_id = array_keys(nodequeue_get_qids('ding_library'));
+  $sql = 'SELECT nq.qid, nq.show_in_tab, nq.show_in_links, nq.show_in_ui, nq.i18n ' .
+    'FROM {nodequeue_queue} nq ' .
+    'INNER JOIN {nodequeue_types} nt ON nt.qid = nq.qid ' .
+    "WHERE nt.type = :type ";
+  $result = db_query($sql, array(':type' => 'ding_library'));
+  $qids = array();
+  foreach ($result as $qid) {
+    $qids[$qid->qid] = $qid;
+  }
+  $queue_id = array_keys($qids);
   $nodes = nodequeue_load_nodes($queue_id[0]);
 
   if (!empty($nodes)) {
