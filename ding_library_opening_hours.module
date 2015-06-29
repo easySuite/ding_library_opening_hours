@@ -163,7 +163,7 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
     $qids[$qid->qid] = $qid;
   }
   $queue_id = array_keys($qids);
-  $nodes = nodequeue_load_nodes($queue_id[0]);
+  $nodes = nodequeue_load_nodes($queue_id[0], FALSE, 0, 50);
 
   if (!empty($nodes)) {
     foreach ($nodes as $library) {
