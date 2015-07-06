@@ -1,0 +1,248 @@
+@import "_mixins";
+@import "_fontawesome";
+@import "susy";
+
+/* FontAwesome
+   ========================================================================== */
+
+$fontAwesomePath:   "../font" !default;
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('#{$fontAwesomePath}/fontawesome-webfont.eot?v=3.0.1');
+  src: url('#{$fontAwesomePath}/fontawesome-webfont.eot?#iefix&v=3.0.1') format("embedded-opentype"),
+    url('#{$fontAwesomePath}/fontawesome-webfont.woff?v=3.0.1') format("woff"),
+    url('#{$fontAwesomePath}/fontawesome-webfont.ttf?v=3.0.1') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Spacing variables
+   ========================================================================== */
+
+$large-spacing:                   20px;
+$medium-spacing:                  10px;
+$small-spacing:                   5px;
+
+
+/* Font library
+   ========================================================================== */
+
+$base-icon-library-font:         "FontAwesome";
+
+
+/* Colors variables
+   ========================================================================== */
+
+$white:                   #fff;
+$dark-gray:               #ccc;
+$darker-gray:             #333;
+$light-gray:              #dadada;
+$lighter-gray:            #e5e5e5;
+$gray:                    #ccc;
+$black:                   #000;
+$gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
+
+
+/* Font variables
+   ========================================================================== */
+
+$base-font-size:                  16px;
+$base-line-height:                24px;
+$base-font-family:                'Source Sans Pro', sans-serif;
+$base-font-weight-light:          300;
+$base-font-weight-normal:         400;
+$base-font-weight-bold:           600;
+$font-size-reset:                 100%;
+
+.ding-library-opened-today .library,
+.ding-library-opening-hours .day {
+  overflow: hidden;
+  display: block;
+  padding: 6px !important;
+}
+
+.ding-library-opened-today .library .library-name,
+.ding-library-opening-hours .day .day-name {
+  display: block;
+  float: left;
+}
+
+.ding-library-opened-today .library .hours,
+.ding-library-opening-hours .day .hours {
+  display: block;
+  float: right;
+  clear: right;
+  text-align: right;
+}
+
+/**
+ * Opening hours
+ *
+ * @author magnify, zorp
+ */
+
+
+
+/* Toggle opening hours
+   ========================================================================== */
+
+.opening-hours-toggle {
+  padding-left: $large-spacing;
+
+  &.js-opening-hours-not-available {
+    display: none;
+  }
+
+  &.js-collapsed {
+    @extend .icon-plus-sign !optional;
+  }
+
+  &.js-expanded {
+    @extend .icon-minus-sign !optional;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:before {
+    margin-right: $small-spacing;
+    font-family: $base-icon-library-font;
+  }
+
+  /* Media queries */
+  @include small-medium() {
+    display: inline;
+    width: auto;
+  }
+}
+
+
+.block-opening-hours {
+  @include min-height(279px);
+
+  .read-more {
+    margin-left: 3px;
+  }
+}
+
+.opening-hours-week {
+  padding: $large-spacing;
+  padding-top: $medium-spacing;
+  background: $white;
+
+  .header {
+    @include font-bold();
+    padding: 0;
+    padding-bottom: $medium-spacing;
+
+    background: $white;
+    color: $darker-gray;
+  }
+
+  .days {
+    padding: 0;
+
+    .day {
+      padding: 6px;
+    }
+
+    .times {
+      padding-right: 1em;
+      margin-right: .5em
+    }
+
+    .odd {
+      background: $light-gray;
+    }
+
+    .even {
+      background: $lighter-gray;
+    }
+  }
+
+  .prev,
+  .next {
+    font-size: $font-size-reset;
+    font-family: $base-icon-library-font;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .prev {
+    float: left;
+    margin-left: $small-spacing;
+  }
+
+  .next {
+    float: right;
+    margin-right: $small-spacing;
+  }
+
+  .notice-star {
+    @extend .icon-info-sign !optional;
+
+    visibility: hidden;
+    margin-right: -2em;
+    padding-left: .5em;
+
+    // Icon placement and font-face.
+    &:before {
+      visibility: visible;
+      font-family: $base-icon-library-font;
+    }
+  }
+}
+
+// Main widget
+// ==========================================================================
+
+.pane-ding-library-opening-hours-ding-library-opened-today {
+  background-color: $white;
+  padding: 10px;
+  ul {
+    padding-left: 0;
+
+    .library {
+      padding: 3px;
+      background-color: #f2f2f2;
+
+      &:nth-of-type(2n+2) {
+        background-color: #e8e8e8;
+      }
+    }
+  }
+}
+
+.hours {
+
+  .day-notice-star {
+    @extend .icon-info-sign !optional;
+
+    visibility: hidden;
+    margin-right: .5em;
+
+    // Icon placement and font-face.
+    &:before {
+      visibility: visible;
+      font-family: $base-icon-library-font;
+    }
+  }
+}
+
+.layout-wrapper .pane-ding-library-opening-hours-ding-library-opened-today {
+  background-color: transparent;
+  padding: 0;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+  .hours {
+    .day-notice-star {
+      visibility: visible;
+    }
+  }
+}
+
