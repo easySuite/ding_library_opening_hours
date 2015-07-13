@@ -1332,6 +1332,10 @@ ul.icons li [class*=" icon-"] {
    ========================================================================== */
 /* Font variables
    ========================================================================== */
+.pane-ding-library-opening-hours-ding-library-opened-today {
+  margin-bottom: 20px;
+}
+
 .ding-library-opened-today .library,
 .ding-library-opening-hours .day {
   overflow: hidden;
