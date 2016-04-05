@@ -235,6 +235,12 @@ $font-size-reset:                 100%;
       font-family: $base-icon-library-font;
     }
   }
+
+  .raw-notice {
+    font-size: small;
+    text-transform: uppercase;
+    padding-right: 3px;
+  }
 }
 
 .layout-wrapper .pane-ding-library-opening-hours-ding-library-opened-today {
@@ -242,7 +248,7 @@ $font-size-reset:                 100%;
   padding: 0;
 }
 
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   .hours {
     .day-notice-star {
       visibility: visible;
