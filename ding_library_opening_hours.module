@@ -18,7 +18,39 @@ function ding_library_opening_hours_menu() {
     'page arguments' => array(1, 2),
   );
 
+  $menu['admin/config/system/ding_library_opening_hours'] = array(
+    'title' => 'Library opening hours settings',
+    'description' => 'Provides Ding library opening hours settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ding_library_opening_hours_form'),
+    'access arguments' => array('administer opening hours configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   return $menu;
+}
+
+/**
+ * Settings page form callback.
+ *
+ * @return mixed
+ */
+function ding_library_opening_hours_form() {
+  $form = array();
+
+  $form['dloh'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Ding library opening hours settings',
+  );
+
+  $form['dloh']['ding_library_opening_hours_notice_hide_icon'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show notice as text'),
+    '#description' => t('Toggle display of notice in "Opened today" libraries block.'),
+    '#default_value' => variable_get('ding_library_opening_hours_notice_hide_icon', ''),
+  );
+
+  return system_settings_form($form);
 }
 
 /**
@@ -191,6 +223,10 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
         $libraries[$hour->nid]['opening_hours'][$i]['notice'] = $hour->notice;
         $i++;
       }
+
+      // Check if we should display text instead of "info" icon for notice.
+      $notice_format = variable_get('ding_library_opening_hours_notice_hide_icon', FALSE);
+      $vars['notice_format'] = $notice_format;
     }
   }
 
