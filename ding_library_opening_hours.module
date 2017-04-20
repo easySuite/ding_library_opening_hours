@@ -232,3 +232,20 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
 
   $vars['libraries'] = $libraries;
 }
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function ding_library_opening_hours_views_pre_render(&$view) {
+  if ($view->name == 'ding_library' && $view->current_display == 'ding_library_libraries_list') {
+    foreach ($view->result as $row => $item) {
+      $node = node_load($item->nid);
+      $field = field_get_items('node', $node, 'field_ding_library_overview_val');
+      $ding_library_overview = $field[0]['value'];
+
+      if (!empty($ding_library_overview)) {
+        unset($view->result[$row]);
+      }
+    }
+  }
+}
