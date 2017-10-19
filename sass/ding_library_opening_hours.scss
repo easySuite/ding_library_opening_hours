@@ -226,11 +226,11 @@ $font-size-reset:                 100%;
   .day-notice-star {
     @extend .icon-info-sign !optional;
 
-    visibility: hidden;
+    visibility: visible;
     margin-right: .5em;
 
     // Icon placement and font-face.
-    &:before {
+    &::before {
       visibility: visible;
       font-family: $base-icon-library-font;
     }
