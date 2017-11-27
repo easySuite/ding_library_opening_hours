@@ -1,62 +1,59 @@
-@import "_mixins";
-@import "_fontawesome";
+@import "../../../themes/ddbasic/sass/_base.scss";
 @import "susy";
 
-/* FontAwesome
+/* Spacing variables
    ========================================================================== */
 
-$fontAwesomePath:   "../font" !default;
-
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('#{$fontAwesomePath}/fontawesome-webfont.eot?v=3.0.1');
-  src: url('#{$fontAwesomePath}/fontawesome-webfont.eot?#iefix&v=3.0.1') format("embedded-opentype"),
-    url('#{$fontAwesomePath}/fontawesome-webfont.woff?v=3.0.1') format("woff"),
-    url('#{$fontAwesomePath}/fontawesome-webfont.ttf?v=3.0.1') format("truetype");
+  @font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?w8c7eq');
+  src:  url('../fonts/icomoon.eot?w8c7eq#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?w8c7eq') format('truetype'),
+    url('../fonts/icomoon.woff?w8c7eq') format('woff'),
+    url('../fonts/icomoon.svg?w8c7eq#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-/* Spacing variables
-   ========================================================================== */
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 $large-spacing:                   20px;
 $medium-spacing:                  10px;
 $small-spacing:                   5px;
 
-
-/* Font library
-   ========================================================================== */
-
-$base-icon-library-font:         "FontAwesome";
-
-
-/* Colors variables
-   ========================================================================== */
-
-$white:                   #fff;
-$dark-gray:               #ccc;
-$darker-gray:             #333;
-$light-gray:              #dadada;
-$lighter-gray:            #e5e5e5;
-$gray:                    #ccc;
-$black:                   #000;
 $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
-
-
-/* Font variables
-   ========================================================================== */
-
-$base-font-size:                  16px;
-$base-line-height:                24px;
-$base-font-family:                'Source Sans Pro', sans-serif;
-$base-font-weight-light:          300;
-$base-font-weight-normal:         400;
-$base-font-weight-bold:           600;
 $font-size-reset:                 100%;
 
 .pane-ding-library-opening-hours-ding-library-opened-today {
-  margin-bottom: 20px;
+  margin-bottom: 20px; 
+}
+
+.contextual-links-region.pane-opening-hours-week {
+  clear: both;
+  float: none;
+  position: relative;
+  display: block;
+
+  :after { 
+    content: "."; 
+    visibility: hidden; 
+    display: block; 
+    height: 0; 
+    clear: both;
+  }
 }
 
 .ding-library-opened-today .library,
@@ -85,9 +82,6 @@ $font-size-reset:                 100%;
  *
  * @author magnify, zorp
  */
-
-
-
 /* Toggle opening hours
    ========================================================================== */
 
@@ -99,11 +93,13 @@ $font-size-reset:                 100%;
   }
 
   &.js-collapsed {
-    @extend .icon-plus-sign !optional;
+    content: "\e909";
+    font-family: 'icomoon';
   }
 
   &.js-expanded {
-    @extend .icon-minus-sign !optional;
+    content: "\e90d";
+    font-family: 'icomoon';
   }
 
   &:hover {
@@ -112,11 +108,11 @@ $font-size-reset:                 100%;
 
   &:before {
     margin-right: $small-spacing;
-    font-family: $base-icon-library-font;
+    font-family: $font-family;
   }
 
   /* Media queries */
-  @include small-medium() {
+  @include media($mobile) {
     display: inline;
     width: auto;
   }
@@ -124,8 +120,6 @@ $font-size-reset:                 100%;
 
 
 .block-opening-hours {
-  @include min-height(279px);
-
   .read-more {
     margin-left: 3px;
   }
@@ -137,12 +131,12 @@ $font-size-reset:                 100%;
   background: $white;
 
   .header {
-    @include font-bold();
+    font-family: $font-family-bold;
     padding: 0;
     padding-bottom: $medium-spacing;
 
     background: $white;
-    color: $darker-gray;
+    color: $grey-dark;
   }
 
   .days {
@@ -158,18 +152,18 @@ $font-size-reset:                 100%;
     }
 
     .odd {
-      background: $light-gray;
+      background: $grey;
     }
 
     .even {
-      background: $lighter-gray;
+      background: $grey-light;
     }
   }
 
   .prev,
   .next {
     font-size: $font-size-reset;
-    font-family: $base-icon-library-font;
+    font-family: $font-family;
 
     &:hover {
       text-decoration: none;
@@ -187,8 +181,6 @@ $font-size-reset:                 100%;
   }
 
   .notice-star {
-    @extend .icon-info-sign !optional;
-
     visibility: hidden;
     margin-right: -2em;
     padding-left: .5em;
@@ -196,7 +188,7 @@ $font-size-reset:                 100%;
     // Icon placement and font-face.
     &:before {
       visibility: visible;
-      font-family: $base-icon-library-font;
+      font-family: $font-family;
     }
   }
 }
@@ -212,27 +204,29 @@ $font-size-reset:                 100%;
 
     .library {
       padding: 3px;
-      background-color: #f2f2f2;
+      background-color: $grey-light;
 
       &:nth-of-type(2n+2) {
-        background-color: #e8e8e8;
+        background-color: $grey;
       }
     }
   }
 }
 
 .hours {
+  .icon-info:before {
+    content: "\ea0c";
+    font-family: 'icomoon';
+  }
 
   .day-notice-star {
-    @extend .icon-info-sign !optional;
-
     visibility: hidden;
     margin-right: .5em;
 
     // Icon placement and font-face.
     &:before {
       visibility: visible;
-      font-family: $base-icon-library-font;
+      font-family: 'icomoon';
     }
   }
 
@@ -255,4 +249,3 @@ $font-size-reset:                 100%;
     }
   }
 }
-
