@@ -56,7 +56,7 @@ msgid "Content structure for local libraries."
 msgstr ""
 
 #: ding_library_opening_hours.info:0
-msgid "easyDDB"
+msgid "easyOPAC"
 msgstr ""
 
 #: modules/hide_from_opening_hours/hide_from_opening_hours.features.field_instance.inc:125
@@ -72,7 +72,7 @@ msgid "Hide from opening hours main widget and library page overview"
 msgstr ""
 
 #: modules/hide_from_opening_hours/hide_from_opening_hours.info:0
-msgid "easyDDB"
+msgid "easyOPAC"
 msgstr ""
 
 #: templates/ding_library_opened_today_view.tpl.php:10
