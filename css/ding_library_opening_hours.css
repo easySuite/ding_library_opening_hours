@@ -96,10 +96,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.pane-ding-library-opening-hours-ding-library-opened-today {
-  margin-bottom: 20px;
-}
-
 .contextual-links-region.pane-opening-hours-week {
   clear: both;
   float: none;
@@ -230,10 +226,6 @@
   font-family: "FaktPro-Normal", sans-serif;
 }
 
-.pane-ding-library-opening-hours-ding-library-opened-today {
-  background-color: #fff;
-  padding: 10px;
-}
 .pane-ding-library-opening-hours-ding-library-opened-today ul {
   padding-left: 0;
 }
