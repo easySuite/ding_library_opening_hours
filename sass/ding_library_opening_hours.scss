@@ -37,10 +37,6 @@ $small-spacing:                   5px;
 $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 $font-size-reset:                 100%;
 
-.pane-ding-library-opening-hours-ding-library-opened-today {
-  margin-bottom: 20px; 
-}
-
 .contextual-links-region.pane-opening-hours-week {
   clear: both;
   float: none;
@@ -197,8 +193,6 @@ $font-size-reset:                 100%;
 // ==========================================================================
 
 .pane-ding-library-opening-hours-ding-library-opened-today {
-  background-color: $white;
-  padding: 10px;
   ul {
     padding-left: 0;
 
