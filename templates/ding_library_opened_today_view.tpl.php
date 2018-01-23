@@ -12,7 +12,7 @@
                   <?php if ($variables['notice_format']): ?>
                     <span class="raw-notice"><?php print $opening_hour['notice']; ?></span>
                   <?php else: ?>
-                    <span class="day-notice-star" original-title="<?php print $opening_hour['notice']; ?>"></span>
+                    <span class="day-notice-star icon-info" original-title="<?php print $opening_hour['notice']; ?>"></span>
                   <?php endif; ?>
                 <?php endif; ?>
                 <span class="start_time" title="<?php echo t('Opening time'); ?>"><?php print $opening_hour['start_time']; ?></span> -
