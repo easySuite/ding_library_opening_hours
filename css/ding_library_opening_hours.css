@@ -246,7 +246,7 @@
   visibility: hidden;
   margin-right: .5em;
 }
-.hours .day-notice-star:before {
+.hours .day-notice-star::before {
   visibility: visible;
   font-family: 'icomoon';
 }

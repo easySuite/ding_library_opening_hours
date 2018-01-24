@@ -219,7 +219,7 @@ $font-size-reset:                 100%;
     margin-right: .5em;
 
     // Icon placement and font-face.
-    &:before {
+    &::before {
       visibility: visible;
       font-family: 'icomoon';
     }
