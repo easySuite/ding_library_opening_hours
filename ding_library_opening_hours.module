@@ -177,6 +177,33 @@ function template_preprocess_ding_library_opening_hours_view(&$vars) {
 }
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function ding_library_opening_hours_theme_registry_alter(&$theme_registry) {
+  $theme_registry['ding_ddbasic_opening_hours_all']['preprocess functions'][] = 'ding_library_opening_hours_preprocess_ding_ddbasic_opening_hours_all';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+/**
+ * Filter libraries based on the field_ding_library_main_val.
+ *
+ * @todo Remove this when All opening hours pane will be moved to
+ * Ding: Today's opening hours for all libraries.
+ */
+function ding_library_opening_hours_preprocess_ding_ddbasic_opening_hours_all(&$variables) {
+  if (!empty($variables['table']['#rows'])) {
+    foreach ($variables['table']['#rows'] as $lid => $row) {
+      $library = node_load($lid);
+      if (!empty($library->field_ding_library_main_val[LANGUAGE_NONE][0]['value'])) {
+        unset($variables['table']['#rows'][$lid]);
+      }
+    }
+  }
+}
+
+/**
  * Preprocess variables for our template.
  */
 function template_preprocess_ding_library_opened_today_view(&$vars) {
