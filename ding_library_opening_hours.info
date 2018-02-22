@@ -1,5 +1,6 @@
 core = "7.x"
 dependencies[] = "opening_hours"
+dependencies[] = "ding_ddbasic_opening_hours"
 description = "Content structure for local libraries."
 name = "Ding library opening hours"
 package = "easyOPAC"
