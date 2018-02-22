@@ -34,6 +34,7 @@ function ding_library_opening_hours_menu() {
  * Settings page form callback.
  *
  * @return mixed
+ *   Return settings form.
  */
 function ding_library_opening_hours_form() {
   $form = array();
@@ -48,6 +49,12 @@ function ding_library_opening_hours_form() {
     '#title' => t('Show notice as text'),
     '#description' => t('Toggle display of notice in "Opened today" libraries block.'),
     '#default_value' => variable_get('ding_library_opening_hours_notice_hide_icon', ''),
+  );
+
+  $form['dloh']['ding_library_opening_hours_show_in_tabs'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show opening hours in tabs?'),
+    '#default_value' => variable_get('ding_library_opening_hours_show_in_tabs', 0),
   );
 
   return system_settings_form($form);
@@ -103,6 +110,12 @@ function ding_library_opening_hours_block_view($delta = '') {
     $block['content'] = array(
       '#theme' => 'ding_library_opened_today_view',
     );
+
+    if (variable_get('ding_library_opening_hours_show_in_tabs', 0) == 1) {
+      $block['content'] = array(
+        '#theme' => 'ding_library_opening_hours_all_tabbed',
+      );
+    }
   }
 
   return $block;
@@ -137,6 +150,11 @@ function ding_library_opening_hours_theme($existing, $type, $theme, $path) {
       'template' => 'ding_library_opened_today_view',
       'variables' => array('libraries' => NULL),
     ),
+    'ding_library_opening_hours_all_tabbed' => array(
+      'variables' => array(
+        'today' => NULL,
+      ),
+    ),
   );
 }
 
@@ -145,14 +163,14 @@ function ding_library_opening_hours_theme($existing, $type, $theme, $path) {
  */
 function template_preprocess_ding_library_opening_hours_view(&$vars) {
   $node = $vars['node'];
-  // Some minor date manipulations to get the correct range for the block
+  // Some minor date manipulations to get the correct range for the block.
   $full_day            = 24 * 60 * 60;
   $current_date        = time();
   $current_day_of_week = date('w');
   $start_of_week       = $current_date - ($full_day * $current_day_of_week) + 1;
   $start_date          = date('Y-m-d', $start_of_week);
 
-  // Generate dummy holder for the current week
+  // Generate dummy holder for the current week.
   $days = array();
   for ($i = 0; $i < 7; $i++) {
     $start_of_week  += $full_day;
@@ -164,7 +182,7 @@ function template_preprocess_ding_library_opening_hours_view(&$vars) {
 
   $end_date = date('Y-m-d', $start_of_week);
 
-  // Load the opening hours from DB for theming
+  // Load the opening hours from DB for theming.
   $opening_hours = opening_hours_instance_load_multiple($node->nid, $start_date, $end_date);
   foreach ($opening_hours as $instance) {
     if (isset($days[$instance->date]['day_name'])) {
@@ -177,33 +195,6 @@ function template_preprocess_ding_library_opening_hours_view(&$vars) {
 }
 
 /**
- * Implements hook_theme_registry_alter().
- */
-function ding_library_opening_hours_theme_registry_alter(&$theme_registry) {
-  $theme_registry['ding_ddbasic_opening_hours_all']['preprocess functions'][] = 'ding_library_opening_hours_preprocess_ding_ddbasic_opening_hours_all';
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-/**
- * Filter libraries based on the field_ding_library_main_val.
- *
- * @todo Remove this when All opening hours pane will be moved to
- * Ding: Today's opening hours for all libraries.
- */
-function ding_library_opening_hours_preprocess_ding_ddbasic_opening_hours_all(&$variables) {
-  if (!empty($variables['table']['#rows'])) {
-    foreach ($variables['table']['#rows'] as $lid => $row) {
-      $library = node_load($lid);
-      if (!empty($library->field_ding_library_main_val[LANGUAGE_NONE][0]['value'])) {
-        unset($variables['table']['#rows'][$lid]);
-      }
-    }
-  }
-}
-
-/**
  * Preprocess variables for our template.
  */
 function template_preprocess_ding_library_opened_today_view(&$vars) {
@@ -211,7 +202,7 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
   $today = date('Y-m-d');
 
   // Load all libraries form list, because there are less libraries than dates
-  // and because of how opening_hours_instance_load_multiple works
+  // and because of how opening_hours_instance_load_multiple works.
   $sql = 'SELECT nq.qid, nq.show_in_tab, nq.show_in_links, nq.show_in_ui, nq.i18n ' .
     'FROM {nodequeue_queue} nq ' .
     'INNER JOIN {nodequeue_types} nt ON nt.qid = nq.qid ' .
@@ -240,7 +231,7 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
       }
     }
 
-    // Get all dates for today
+    // Get all dates for today.
     if (!empty($libraries) > 0) {
       $opening_hours = opening_hours_instance_load_multiple(array_keys($libraries), $today, $today);
       $i = 0;
@@ -275,4 +266,176 @@ function ding_library_opening_hours_views_pre_render(&$view) {
       }
     }
   }
+}
+
+
+/**
+ * Categorized library opening hours.
+ */
+function theme_ding_library_opening_hours_all_tabbed($variables) {
+  return $variables['tabbed'];
+}
+
+/**
+ * Preprocessing categorized library opening hours.
+ */
+function template_preprocess_ding_library_opening_hours_all_tabbed(&$variables) {
+  drupal_add_library('system', 'ui.tabs');
+  drupal_add_js('jQuery(document).ready(function(){jQuery("#oh-tabs").tabs();});', 'inline');
+
+  $today = strtotime('today');
+
+  if (!empty($variables['today'])) {
+    $today = $variables['today'];
+  }
+
+  $order = [];
+  $queue = nodequeue_load_queue_by_name('ding_library_listing');
+  foreach (nodequeue_load_nodes($queue->qid, FALSE, 0, 0) as $node) {
+    if (empty($node->field_ding_library_main_val[LANGUAGE_NONE][0]['value'])) {
+      $order[$node->title] = $node->nid;
+    }
+  }
+
+  // Get and sort all the instances in the given timespan.
+  $instances = opening_hours_instance_load_multiple(
+    array_values($order),
+    date('Y-m-d', $today),
+    date('Y-m-d', $today)
+  );
+
+  foreach ($order as $library_nid) {
+    $closed = TRUE;
+    foreach ($instances as $instance) {
+      if ($instance->nid == $library_nid) {
+        $closed = FALSE;
+      }
+    }
+
+    if ($closed === TRUE) {
+      $instances[] = (object) [
+        'instance_id' => -1,
+        'nid' => $library_nid,
+        'start_time' => '0',
+        'end_time' => '0',
+        'category_tid' => NULL,
+        'date' => date('Y-m-d', $today),
+        'closed' => TRUE,
+        'notice' => t('Closed'),
+      ];
+    }
+  }
+
+  usort($instances, 'ding_library_opening_hours_sort');
+
+  $order = array_flip($order);
+
+  foreach ($instances as $instance) {
+    $category_weight = ding_ddbasic_opening_hours_get_category_weight($instance->category_tid);
+
+    if (!isset($categories[$category_weight])) {
+      $categories[$category_weight] = ding_ddbasic_opening_hours_get_category_name($instance->category_tid);
+
+      // Forming tab heading names.
+      foreach ($categories as $key => $category) {
+        // Resetting default tab name.
+        if ($key == '-1') {
+          $category = t('Library and citizens');
+        }
+        $tabs_heading[$key] = "<a href='#tab-$key'>$category</a>";
+      }
+    }
+
+    $library = $order[$instance->nid];
+
+    if (!isset($structured[$library])) {
+      $structured[$library] = [
+        'cols' => [],
+        'extra' => [],
+        'name' => l($library, 'node/' . $instance->nid),
+      ];
+    }
+
+    if (!empty($instance->notice)) {
+      $notice = '<span class="opening-hours-table-notice">' . $instance->notice . '</span>';
+    }
+    else {
+      $notice = '';
+    }
+
+    if (empty($structured[$library]['cols'][$category_weight])) {
+      $structured[$library]['cols'][$category_weight] = '';
+    }
+
+    if (empty($instance->closed)) {
+      $structured[$library]['cols'][$category_weight] .= '<div class="oh-info-item">' . $notice . '<span class="oh-period">' . t('@from - @to', [
+          '@from' => $instance->start_time,
+          '@to' => $instance->end_time,
+        ]) . '</span></div>';
+    }
+    else {
+      $structured[$library]['cols'][$category_weight] = $notice;
+      // Passing 'closed' attribute in order to know that library is closed.
+      $structured[$library]['extra']['closed'] = $category_weight;
+    }
+
+    $structured = array_merge(array_intersect_key(array_flip($order), $structured), $structured);
+  }
+
+  // Start rendering block with tabs.
+  foreach ($tabs_heading as $k => $tab) {
+    $div[$k] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'id' => 'tab-' . $k,
+      ],
+    ];
+
+    // Rendering opening hours.
+    foreach ($structured as $lib => $item) {
+      $inlined = '';
+      foreach ($item['cols'] as $i => $col) {
+        // Display opening hours item for tab with related category.
+        if ($i == $k) {
+          $inlined .= $col;
+        }
+        // Show if library is closed.
+        else {
+          if (!empty($item['extra']['closed'])) {
+            $inlined = $item['cols']['-1'];
+          }
+        }
+      }
+
+      // If library doesn't have opening hours - we hide this, otherwise show
+      // info for this library.
+      if (!empty($inlined)) {
+        $div[$k][] = [
+          $lib = [
+            '#prefix' => '<div class="oh-item">',
+            '#suffix' => '</div>',
+            '#type' => 'markup',
+            '#markup' => '<h3>' . $item['name'] . '</h3><div class="oh-info">' . $inlined . '</div>',
+          ],
+        ];
+      }
+    }
+  }
+
+  // Forming container for rendering.
+  $content_block = [
+    '#type' => 'container',
+    '#attributes' => ['id' => 'oh-tabs'],
+    'tabs' => [
+      '#theme' => 'item_list',
+      '#items' => $tabs_heading,
+    ],
+    'contents' => [
+      '#type' => 'markup',
+      '#markup' => drupal_render($div),
+    ],
+  ];
+
+  // Return rendered block into pane.
+  $variables['tabbed'] = drupal_render($content_block);
 }
