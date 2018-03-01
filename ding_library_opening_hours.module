@@ -326,7 +326,7 @@ function template_preprocess_ding_library_opening_hours_all_tabbed(&$variables) 
     }
   }
 
-  usort($instances, 'ding_library_opening_hours_sort');
+  usort($instances, 'ding_ddbasic_opening_hours_sort');
 
   $order = array_flip($order);
 
