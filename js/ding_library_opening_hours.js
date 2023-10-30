@@ -10,7 +10,7 @@
         $e = $(e);
         $.get('/ding_library_hours_ajax/' + $e.data('type') + '/' + $e.attr('id'));
       });
+      $('.ui-tabs.ui-widget.ui-widget-content .ui-tabs-panel.ui-widget-content').removeAttr('aria-expanded');
     }
   };
-
 }(jQuery));
